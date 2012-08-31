@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WizardBuilderTest</string>
+    <string name="robot">It\'s a real tribute to the skills of both companies, their ability to work smoothly together, and the openness and flexibility of the Android operating system, that the full implementation of this robot from initial concept, through prototyping, testing, and fully functional deployment, to approximately 60 days start to finish.</string>
+    <string name="alien">There\'s a reason phones don\'t remotely resemble PC cases, and we think this mockup does a fabulous job demonstrating why that is.</string>
+    <string name="dosomething">Do something</string>
+</resources>
