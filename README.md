@@ -42,7 +42,9 @@ In your project you first create the wizard:
             .addPage(secondPage)
             .setListener(new Listener())
             .build();
-            
+
+    wizard.show();
+    
 And in the listener you can do some action when the user has clicked a button in a wizard page:
             
     class Listener implements WizardBuilder.WizardListener {
