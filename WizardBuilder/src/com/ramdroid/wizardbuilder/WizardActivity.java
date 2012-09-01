@@ -36,10 +36,10 @@ public class WizardActivity extends SherlockFragmentActivity {
 
     private WizardPageSet pages;
     private int whatsNewId;
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.helpwizard);
 
         Bundle data = this.getIntent().getExtras();
@@ -47,33 +47,33 @@ public class WizardActivity extends SherlockFragmentActivity {
             pages = data.getParcelable("pages");
             whatsNewId = data.getInt("whatsNewId");
         }
-        
+
         // use action bar to jump back to calling activity (used on phones only)
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-        	actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        
+
         // set the pager with an adapter
         WizardAdapter adapter = new WizardAdapter(getSupportFragmentManager());
         adapter.setValues(pages, whatsNewId);
-		ViewPager pager = (ViewPager)findViewById(R.id.viewpager);
-		pager.setAdapter(adapter);
-	
-		// bind the title indicator to the adapter
-		LinePageIndicator indicator = (LinePageIndicator)findViewById(R.id.indicator);
-		indicator.setViewPager(pager);
+        ViewPager pager = (ViewPager)findViewById(R.id.viewpager);
+        pager.setAdapter(adapter);
+
+        // bind the title indicator to the adapter
+        LinePageIndicator indicator = (LinePageIndicator)findViewById(R.id.indicator);
+        indicator.setViewPager(pager);
     }
-    
-	public boolean onOptionsItemSelected (MenuItem item) {
-	    switch (item.getItemId()) {
-	    case android.R.id.home: {
-	    	finish();
-	    	return true;
-	    }
-	    default: {
-	    	return super.onOptionsItemSelected(item);
-	    }
-	    }
-	}
+
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home: {
+            finish();
+            return true;
+        }
+        default: {
+            return super.onOptionsItemSelected(item);
+        }
+        }
+    }
 }

@@ -28,26 +28,26 @@ public class WizardAdapter extends FragmentPagerAdapter {
 
     private WizardPageSet pages;
     private int whatsNewId;
-	
+
     public WizardAdapter(FragmentManager fm) {
         super(fm);
     }
 
-	public void setValues(WizardPageSet pages, int whatsNewId) {
-		this.pages = pages;
+    public void setValues(WizardPageSet pages, int whatsNewId) {
+        this.pages = pages;
         this.whatsNewId = whatsNewId;
-	}
-	
+    }
+
     @Override
     public Fragment getItem(int position) {
         if (pages != null) {
-    	    return WizardFragment.newInstance(pages, position, whatsNewId);
+            return WizardFragment.newInstance(pages, position, whatsNewId);
         }
         return null;
     }
 
     @Override
     public int getCount() {
-    	return (pages != null) ? pages.count() : 0;
+        return (pages != null) ? pages.count() : 0;
     }
 }

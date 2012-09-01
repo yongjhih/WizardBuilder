@@ -38,11 +38,11 @@ import android.widget.TextView;
  */
 public class WizardFragment extends Fragment {
 
-	private static final String KEY_PAGESET     = "WizardFragment:PageSet";
-	private static final String KEY_PAGEID      = "WizardFragment:PageId";
+    private static final String KEY_PAGESET     = "WizardFragment:PageSet";
+    private static final String KEY_PAGEID      = "WizardFragment:PageId";
     private static final String KEY_WHATSNEW    = "WizardFragment:WhatsNew";
 
-	private WizardPageSet pageSet;
+    private WizardPageSet pageSet;
     private int pageId = 0;
     private int whatsNewId;
 
@@ -60,7 +60,7 @@ public class WizardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         if (savedInstanceState != null) {
             pageSet = savedInstanceState.getParcelable(KEY_PAGESET);
             pageId = savedInstanceState.getInt(KEY_PAGEID, 0);
@@ -70,17 +70,17 @@ public class WizardFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	View v = inflater.inflate(R.layout.wizard_page, null);
+        View v = inflater.inflate(R.layout.wizard_page, null);
 
         final WizardPage page = pageSet.get(pageId);
 
-    	int imageId = page.imageId;
-    	ImageView image = (ImageView) v.findViewById(R.id.image);
-    	if (image != null) {
+        int imageId = page.imageId;
+        ImageView image = (ImageView) v.findViewById(R.id.image);
+        if (image != null) {
             image.setImageDrawable(getResources().getDrawable(imageId));
         }
-    	
-    	int descriptionId = page.descriptionId;;
+
+        int descriptionId = page.descriptionId;;
         TextView text = (TextView) v.findViewById(R.id.description);
         if (text != null) {
             text.setText(descriptionId);
@@ -88,16 +88,16 @@ public class WizardFragment extends Fragment {
 
         LinearLayout layoutButtonPanel = (LinearLayout) v.findViewById(R.id.buttonPanel);
         layoutButtonPanel.setVisibility(page.buttonVisibility);
-        
+
         Button buttonNoThanks = (Button) v.findViewById(R.id.buttonNoThanks);
         buttonNoThanks.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
+            @Override
+            public void onClick(View arg0) {
                 getActivity().sendBroadcast(new Intent(ACTION_DISMISS_BUTTON));
                 leave();
-			}
-        	
+            }
+
         });
 
         if (page.buttonTextId > 0) {
@@ -124,9 +124,9 @@ public class WizardFragment extends Fragment {
         outState.putInt(KEY_PAGEID, pageId);
         outState.putInt(KEY_WHATSNEW, whatsNewId);
     }
-    
+
     private void leave() {
         WizardPrefs.store(getActivity(), pageSet, whatsNewId);
-		getActivity().finish();
+        getActivity().finish();
     }
 }

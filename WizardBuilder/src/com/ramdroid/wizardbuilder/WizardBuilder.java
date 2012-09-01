@@ -94,16 +94,16 @@ public class WizardBuilder {
      * not set. The user explicitly has to hit one of the buttons.
      * @return
      */
-	public boolean show() {
+    public boolean show() {
         // check if wizard should be shown
-    	boolean showWizard = showAlways;
+        boolean showWizard = showAlways;
         if (!showWizard) {
             // only show wizard if it hasn't shown before, or if whatsNewId has increased
             showWizard = WizardPrefs.fetch(context, pageSet, whatsNewId);
         }
 
         // launch wizard activity
-    	if (showWizard) {
+        if (showWizard) {
             Bundle data = new Bundle();
             data.putParcelable("pages", pageSet);
             data.putInt("whatsNewId", whatsNewId);
@@ -111,10 +111,10 @@ public class WizardBuilder {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
             i.putExtras(data);
             context.startActivity(i);
-    	}
+        }
 
-    	return showWizard;
-	}
+        return showWizard;
+    }
 
     /**
      * Customizes the {@link WizardBuilder} and adds wizard pages {@link WizardPage}.
