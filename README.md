@@ -11,6 +11,15 @@ Here are some use cases:
 
 ![Screenshot](https://github.com/ramdroid/WizardBuilder/raw/master/Screenshot.png "Example")
 
+Dependencies
+============
+
+In order to use WizardBuilder you need to add the following libraries:
+
+- <a href="http://actionbarsherlock.com/" target="_blank">ActionBarSherlock</a>
+- <a href="http://viewpagerindicator.com/" target="_blank">ViewPagerIndicator</a>
+- and of course the <a href="http://developer.android.com/tools/extras/support-library.html" target="_blank">Android support library</a>
+
 Usage
 =====
 
