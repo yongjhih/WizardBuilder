@@ -9,6 +9,8 @@ Here are some use cases:
 - Show off new features when app is updated
 - Provide tutorial screens for certain features
 
+![Screenshot](https://github.com/ramdroid/WizardBuilder/raw/master/Screenshot.png "Example")
+
 Usage
 =====
 
