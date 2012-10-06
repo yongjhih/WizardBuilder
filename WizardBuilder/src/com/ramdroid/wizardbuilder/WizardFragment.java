@@ -17,6 +17,7 @@ package com.ramdroid.wizardbuilder;
  */
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -77,7 +78,12 @@ public class WizardFragment extends Fragment {
         int imageId = page.imageId;
         ImageView image = (ImageView) v.findViewById(R.id.image);
         if (image != null) {
-            image.setImageDrawable(getResources().getDrawable(imageId));
+            try {
+                image.setImageDrawable(getResources().getDrawable(imageId));
+            }
+            catch(Resources.NotFoundException e) {
+                image.setVisibility(View.GONE);
+            }
         }
 
         int descriptionId = page.descriptionId;;
