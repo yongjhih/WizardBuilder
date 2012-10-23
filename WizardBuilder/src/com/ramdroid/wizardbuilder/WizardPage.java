@@ -30,6 +30,7 @@ public class WizardPage implements Parcelable {
     public int descriptionId;
     public int buttonVisibility;
     public int buttonTextId;
+    public int dismissButtonVisibility;
 
     public WizardPage(final Builder builder) {
         id = 0; // later set by WizardBuilder
@@ -37,6 +38,7 @@ public class WizardPage implements Parcelable {
         descriptionId = builder.descriptionId;
         buttonVisibility = builder.buttonVisibility;
         buttonTextId = builder.buttonTextId;
+        dismissButtonVisibility = builder.dismissButtonVisibility;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class WizardPage implements Parcelable {
         out.writeInt(descriptionId);
         out.writeInt(buttonVisibility);
         out.writeInt(buttonTextId);
+        out.writeInt(dismissButtonVisibility);
     }
 
     public static final Parcelable.Creator<WizardPage> CREATOR
@@ -70,6 +73,7 @@ public class WizardPage implements Parcelable {
         descriptionId = in.readInt();
         buttonVisibility = in.readInt();
         buttonTextId = in.readInt();
+        dismissButtonVisibility = in.readInt();
     }
 
     public static class Builder {
@@ -78,9 +82,11 @@ public class WizardPage implements Parcelable {
         int descriptionId;
         int buttonVisibility;
         int buttonTextId;
+        int dismissButtonVisibility;
 
         public Builder() {
             this.buttonVisibility = View.GONE;
+            this.dismissButtonVisibility = View.VISIBLE;
         }
 
         public Builder setImageId(int imageId) {
@@ -96,6 +102,11 @@ public class WizardPage implements Parcelable {
         public Builder setButtonTextId(int buttonTextId) {
             this.buttonTextId = buttonTextId;
             this.buttonVisibility = View.VISIBLE;
+            return this;
+        }
+
+        public Builder hideDismissButton() {
+            this.dismissButtonVisibility = View.GONE;
             return this;
         }
 

@@ -96,6 +96,7 @@ public class WizardFragment extends Fragment {
         layoutButtonPanel.setVisibility(page.buttonVisibility);
 
         Button buttonNoThanks = (Button) v.findViewById(R.id.buttonNoThanks);
+        buttonNoThanks.setVisibility(page.dismissButtonVisibility);
         buttonNoThanks.setOnClickListener(new OnClickListener() {
 
             @Override

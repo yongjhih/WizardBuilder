@@ -39,24 +39,29 @@ public class MyActivity extends Activity {
     public void clickButton(View view) {
 
         // create a wizard page
-WizardPage firstPage = new WizardPage.Builder()
-        .setImageId(R.drawable.robot)
-        .setDescriptionId(R.string.robot)
-        .build();
+        WizardPage firstPage = new WizardPage.Builder()
+                .setImageId(R.drawable.robot)
+                .setDescriptionId(R.string.robot)
+                .build();
 
-// create another wizard page
-WizardPage secondPage = new WizardPage.Builder()
-        .setImageId(R.drawable.alien)
-        .setDescriptionId(R.string.alien)
-        .setButtonTextId(R.string.dosomething)
-        .build();
+        // create another wizard page
+        WizardPage.Builder secondPageBuilder = new WizardPage.Builder()
+                .setImageId(R.drawable.alien)
+                .setDescriptionId(R.string.alien)
+                .setButtonTextId(R.string.dosomething);
 
-// initialize a wizard builder
-WizardBuilder.Builder builder =  new WizardBuilder.Builder(this, "Test")
-        .setWhatsNewId(42)
-        .addPage(firstPage)
-        .addPage(secondPage)
-        .setListener(new Listener());
+        if (((CheckBox)findViewById(R.id.hideDismissButton)).isChecked()) {
+            secondPageBuilder.hideDismissButton();
+        }
+
+        WizardPage secondPage = secondPageBuilder.build();
+
+        // initialize a wizard builder
+        WizardBuilder.Builder builder =  new WizardBuilder.Builder(this, "Test")
+                .setWhatsNewId(42)
+                .addPage(firstPage)
+                .addPage(secondPage)
+                .setListener(new Listener());
 
         // show always or show once?
         if (((CheckBox)findViewById(R.id.showAlways)).isChecked()) {
