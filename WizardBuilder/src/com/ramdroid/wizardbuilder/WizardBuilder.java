@@ -83,6 +83,25 @@ public class WizardBuilder {
     }
 
     /**
+     * Determines if the wizard can be started.
+     *
+     * When the showAlways flag is set then this will always return true.
+     *
+     * If the showAlways flag is not set then this will only return true for the first time
+     * or when the whatsNewId has been increased.
+     *
+     * @return True if the launcher can be shown,
+     */
+    public boolean canLaunch() {
+        boolean showWizard = showAlways;
+        if (!showWizard) {
+            // only show wizard if it hasn't shown before, or if whatsNewId has increased
+            showWizard = WizardPrefs.fetch(context, pageSet, whatsNewId);
+        }
+        return showWizard;
+    }
+
+    /**
      * Launches the wizard by starting {@link WizardActivity}.
      *
      * When the showAlways flag is added to {@link Builder} then the wizard is always shown.
@@ -92,15 +111,11 @@ public class WizardBuilder {
      * Note: when the user ignores the wizard with the hardware cancel button or switches
      * between other apps then the wizard will be shown again even if the showAlways flag is
      * not set. The user explicitly has to hit one of the buttons.
-     * @return
+     *
+     * @return True if the wizard has been launched.
      */
     public boolean show() {
-        // check if wizard should be shown
-        boolean showWizard = showAlways;
-        if (!showWizard) {
-            // only show wizard if it hasn't shown before, or if whatsNewId has increased
-            showWizard = WizardPrefs.fetch(context, pageSet, whatsNewId);
-        }
+        boolean showWizard = canLaunch();
 
         // launch wizard activity
         if (showWizard) {
