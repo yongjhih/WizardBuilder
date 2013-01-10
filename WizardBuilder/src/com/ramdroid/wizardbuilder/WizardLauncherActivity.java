@@ -22,12 +22,27 @@ import com.actionbarsherlock.view.MenuItem;
 
 /**
  * This class allows you to launch WizardBuilder in an unintrusive way from the ActionBar.
+ *
+ * You have to add your own icon to the action bar as usual.{@link WizardLauncherActivity} is then
+ * automatically hiding the icon after the user has launched the screen and confirmed by using one
+ * of the two buttons in the launcher. If you push an update later on and the whatsNewId has
+ * increased then it will be shown again.
+ *
+ * Sorry for the supposedly bad way of extending the SherlockFragmentActivity. If anyone knows
+ * about a cleaner solution then please contribute!
  */
 public class WizardLauncherActivity extends SherlockFragmentActivity {
 
     protected int mMenuResourceId = 0;
     protected WizardBuilder mBuilder;
 
+    /**
+     * Call this from your activity to connect a launcher icon from the action bar
+     * with a previously created {@link WizardBuilder}.
+     *
+     * @param menuResourceId the action bar menu entry
+     * @param builder a previously created {@link WizardBuilder}
+     */
     protected void addWizardLauncher(int menuResourceId, WizardBuilder builder) {
         mMenuResourceId = menuResourceId;
         mBuilder = builder;
@@ -36,6 +51,8 @@ public class WizardLauncherActivity extends SherlockFragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        // make sure that the action bar is updated when returning to the activity
         invalidateOptionsMenu();
     }
 
@@ -44,6 +61,7 @@ public class WizardLauncherActivity extends SherlockFragmentActivity {
         if (mMenuResourceId > 0 && mBuilder != null) {
             MenuItem menuItemLauncher = menu.findItem(mMenuResourceId);
             if (menuItemLauncher != null) {
+                // shows or hides the launcher icon in the action bar depending on its state
                 menuItemLauncher.setVisible(mBuilder.canLaunch());
             }
         }
@@ -54,6 +72,9 @@ public class WizardLauncherActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
         int id = item.getItemId();
         if (id == mMenuResourceId && mBuilder != null) {
+            // launch the wizard builder activity
+            // we can't refresh the action bar immediately because the flag to determine if the WizardBuilder is
+            // shown again (or not) is only updated when the user selects one of the two buttons in the wizard.
             mBuilder.show();
             return true;
         }
