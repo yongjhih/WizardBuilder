@@ -36,16 +36,25 @@ public class WizardActivity extends SherlockFragmentActivity {
 
     private WizardPageSet pages;
     private int whatsNewId;
+    private String title;
+    private boolean indicatorBelow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.helpwizard);
 
         Bundle data = this.getIntent().getExtras();
         if (data != null) {
             pages = data.getParcelable("pages");
             whatsNewId = data.getInt("whatsNewId");
+            title = data.getString("title");
+            indicatorBelow = data.getBoolean("indicatorBelow");
+        }
+
+        setContentView(indicatorBelow ? R.layout.helpwizard_indicator_below : R.layout.helpwizard_indicator_above);
+
+        if (title != null && title.length() > 0) {
+            setTitle(title);
         }
 
         // use action bar to jump back to calling activity (used on phones only)

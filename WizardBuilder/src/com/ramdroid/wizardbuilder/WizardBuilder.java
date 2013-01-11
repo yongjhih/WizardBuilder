@@ -49,6 +49,8 @@ public class WizardBuilder {
     private final WizardPageSet pageSet;
     private final WizardListener listener;
     private final boolean showAlways;
+    private final String title;
+    private final boolean indicatorBelow;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -75,6 +77,8 @@ public class WizardBuilder {
         pageSet = builder.pageSet;
         listener = builder.listener;
         showAlways = builder.showAlways;
+        title = builder.title;
+        indicatorBelow = builder.indicatorBelow;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(WizardFragment.ACTION_CLICKED_BUTTON);
@@ -122,6 +126,8 @@ public class WizardBuilder {
             Bundle data = new Bundle();
             data.putParcelable("pages", pageSet);
             data.putInt("whatsNewId", whatsNewId);
+            data.putString("title", title);
+            data.putBoolean("indicatorBelow", indicatorBelow);
             Intent i = new Intent(context, WizardActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
             i.putExtras(data);
@@ -141,6 +147,8 @@ public class WizardBuilder {
         WizardPageSet pageSet;
         WizardListener listener;
         boolean showAlways;
+        String title;
+        boolean indicatorBelow;
 
         /**
          * Initializes the builder with some default values.
@@ -157,6 +165,29 @@ public class WizardBuilder {
             this.showAlways = false;
             this.whatsNewId = 1;
             this.pageSet = new WizardPageSet(name);
+            this.indicatorBelow = false;
+        }
+
+        /**
+         * Set a title for the wizard activity.
+         *
+         * @param title the title
+         * @return The {@link Builder}
+         */
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        /**
+         * The page indicators are displayed above the content by the default. If you want
+         * to change this then use this function to move it below the content.
+         *
+         * @return The {@link Builder}
+         */
+        public Builder setIndicatorBelow() {
+            this.indicatorBelow = true;
+            return this;
         }
 
         /**

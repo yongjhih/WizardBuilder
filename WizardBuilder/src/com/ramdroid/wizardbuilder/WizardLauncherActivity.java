@@ -46,6 +46,7 @@ public class WizardLauncherActivity extends SherlockFragmentActivity {
     protected void addWizardLauncher(int menuResourceId, WizardBuilder builder) {
         mMenuResourceId = menuResourceId;
         mBuilder = builder;
+        invalidateOptionsMenu();
     }
 
     @Override

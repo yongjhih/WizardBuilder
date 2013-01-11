@@ -16,28 +16,37 @@ package com.ramdroid.wizardbuilder.test;
  limitations under the License.
  */
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.ramdroid.wizardbuilder.WizardBuilder;
+import com.ramdroid.wizardbuilder.WizardLauncherActivity;
 import com.ramdroid.wizardbuilder.WizardPage;
 
 /**
  * Simple sample activity that launches a wizard.
  */
-public class MyActivity extends Activity {
+public class MyActivity extends WizardLauncherActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        addWizardLauncher(R.id.news, createWizard());
     }
 
-    public void clickButton(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
 
+    private WizardBuilder createWizard() {
         // create a wizard page
         WizardPage firstPage = new WizardPage.Builder()
                 .setImageId(R.drawable.robot)
@@ -57,7 +66,8 @@ public class MyActivity extends Activity {
         WizardPage secondPage = secondPageBuilder.build();
 
         // initialize a wizard builder
-        WizardBuilder.Builder builder =  new WizardBuilder.Builder(this, "Test")
+        WizardBuilder.Builder builder = new WizardBuilder.Builder(this, "Test")
+                .setTitle(getString(R.string.hello))
                 .setWhatsNewId(42)
                 .addPage(firstPage)
                 .addPage(secondPage)
@@ -68,13 +78,11 @@ public class MyActivity extends Activity {
             builder.setShowAlways();
         }
 
-        // build the wizard configuration
-        WizardBuilder wizard = builder.build();
+        return builder.build();
+    }
 
-        // GO GO GO!
-        if (!wizard.show()) {
-            Toast.makeText(this, "Wizard has already been shown.", Toast.LENGTH_SHORT).show();
-        }
+    public void clickUpdate(View view) {
+        addWizardLauncher(R.id.news, createWizard());
     }
 
     /**
