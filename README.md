@@ -11,6 +11,13 @@ Here are some use cases:
 
 ![Screenshot](https://github.com/ramdroid/WizardBuilder/raw/master/Screenshot.png "Example")
 
+There is a new option to launch the wizard in an unintrusive way from the action bar.
+A colored 'news' icon is shown to launch the wizard. Once the user has read it (e.g.
+used one of the two wizard buttons) then the icon disappears. It will reappear again
+if you push some new content (increase the whatsNewId).
+
+![Screenshot](https://github.com/ramdroid/WizardBuilder/raw/master/Screenshot2.png "Launcher")
+
 Dependencies
 ============
 
@@ -41,10 +48,16 @@ In your project you first create the wizard:
             .addPage(secondPage)
             .setListener(new Listener())
             .build();
+            
+You can now launch it directly:
 
     wizard.show();
     
-And in the listener you can do some action when the user has clicked a button in a wizard page:
+If you want to launch it from the ActionBar instead then you need to inherit your activity from 'WizardLauncherActivity' and add an icon to your ActionBar menu. Then add this line (typically from onCreate of your activity):
+
+    addWizardLauncher(R.id.news, createWizard());
+    
+Finally in the listener you can do some action when the user has clicked a button in a wizard page:
             
     class Listener implements WizardBuilder.WizardListener {
 
