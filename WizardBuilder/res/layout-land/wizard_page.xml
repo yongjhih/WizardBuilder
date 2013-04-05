@@ -6,14 +6,15 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:weightSum="2">
-    
-    <ImageView 
+
+    <ImageView
         android:id="@+id/image"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:layout_margin="@dimen/wizard_page_margin"
-        android:adjustViewBounds="true" />
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
     
     <LinearLayout
         android:orientation="vertical"
