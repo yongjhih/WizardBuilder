@@ -86,6 +86,17 @@ public class WizardFragment extends Fragment {
             }
         }
 
+        int backgroundImageId = page.backgroundImageId;
+        //ViewGroup viewGroup = (ViewGroup) v.findViewById(R.id.wizard_page_viewgroup);
+        ViewGroup viewGroup = container;
+        if (viewGroup != null) {
+            try {
+                viewGroup.setBackgroundResource(backgroundImageId);
+            }
+            catch (Resources.NotFoundException e) {
+            }
+        }
+
         int descriptionId = page.descriptionId;;
         TextView text = (TextView) v.findViewById(R.id.description);
         if (text != null) {

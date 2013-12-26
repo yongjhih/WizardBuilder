@@ -16,12 +16,16 @@ package com.ramdroid.wizardbuilder;
  limitations under the License.
  */
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.LinePageIndicator;
+import com.viewpagerindicator.PageIndicator;
 
 /**
  * In this activity a ViewIndicator and a {@link WizardAdapter} is created.
@@ -38,6 +42,7 @@ public class WizardActivity extends SherlockFragmentActivity {
     private int whatsNewId;
     private String title;
     private boolean indicatorBelow;
+    private int backgroundImageId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,7 @@ public class WizardActivity extends SherlockFragmentActivity {
             whatsNewId = data.getInt("whatsNewId");
             title = data.getString("title");
             indicatorBelow = data.getBoolean("indicatorBelow");
+            backgroundImageId = data.getInt("backgroundImageId");
         }
 
         setContentView(indicatorBelow ? R.layout.helpwizard_indicator_below : R.layout.helpwizard_indicator_above);
@@ -70,8 +76,18 @@ public class WizardActivity extends SherlockFragmentActivity {
         pager.setAdapter(adapter);
 
         // bind the title indicator to the adapter
-        LinePageIndicator indicator = (LinePageIndicator)findViewById(R.id.indicator);
+        PageIndicator indicator = (PageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(pager);
+
+        ViewGroup viewGroup = (ViewGroup) pager.getParent();
+        if (viewGroup != null) {
+            try {
+                viewGroup.setBackgroundResource(backgroundImageId);
+            }
+            catch (Resources.NotFoundException e) {
+            }
+        }
+
     }
 
     public boolean onOptionsItemSelected (MenuItem item) {

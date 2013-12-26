@@ -51,6 +51,7 @@ public class WizardBuilder {
     private final boolean showAlways;
     private final String title;
     private final boolean indicatorBelow;
+    private final int backgroundImageId;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -79,6 +80,7 @@ public class WizardBuilder {
         showAlways = builder.showAlways;
         title = builder.title;
         indicatorBelow = builder.indicatorBelow;
+        backgroundImageId = builder.backgroundImageId;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(WizardFragment.ACTION_CLICKED_BUTTON);
@@ -128,6 +130,7 @@ public class WizardBuilder {
             data.putInt("whatsNewId", whatsNewId);
             data.putString("title", title);
             data.putBoolean("indicatorBelow", indicatorBelow);
+            data.putInt("backgroundImageId", backgroundImageId);
             Intent i = new Intent(context, WizardActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
             i.putExtras(data);
@@ -149,6 +152,7 @@ public class WizardBuilder {
         boolean showAlways;
         String title;
         boolean indicatorBelow;
+        int backgroundImageId;
 
         /**
          * Initializes the builder with some default values.
@@ -166,6 +170,7 @@ public class WizardBuilder {
             this.whatsNewId = 1;
             this.pageSet = new WizardPageSet(name);
             this.indicatorBelow = false;
+            this.backgroundImageId = -1;
         }
 
         /**
@@ -186,7 +191,16 @@ public class WizardBuilder {
          * @return The {@link Builder}
          */
         public Builder setIndicatorBelow() {
-            this.indicatorBelow = true;
+            return setIndicatorBelow(true);
+        }
+
+        public Builder setIndicatorBelow(boolean below) {
+            this.indicatorBelow = below;
+            return this;
+        }
+
+        public Builder setBackgroundImageId(int id) {
+            this.backgroundImageId = id;
             return this;
         }
 
@@ -237,7 +251,11 @@ public class WizardBuilder {
          * @return The {@link Builder}.
          */
         public Builder setShowAlways() {
-            this.showAlways = true;
+            return setShowAlways(true);
+        }
+
+        public Builder setShowAlways(boolean always) {
+            this.showAlways = always;
             return this;
         }
 

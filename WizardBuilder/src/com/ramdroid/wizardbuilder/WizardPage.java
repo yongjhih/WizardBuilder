@@ -27,6 +27,7 @@ public class WizardPage implements Parcelable {
 
     public int id;
     public int imageId;
+    public int backgroundImageId;
     public int descriptionId;
     public int buttonVisibility;
     public int buttonTextId;
@@ -35,6 +36,7 @@ public class WizardPage implements Parcelable {
     public WizardPage(final Builder builder) {
         id = 0; // later set by WizardBuilder
         imageId = builder.imageId;
+        backgroundImageId = builder.backgroundImageId;
         descriptionId = builder.descriptionId;
         buttonVisibility = builder.buttonVisibility;
         buttonTextId = builder.buttonTextId;
@@ -50,6 +52,7 @@ public class WizardPage implements Parcelable {
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(id);
         out.writeInt(imageId);
+        out.writeInt(backgroundImageId);
         out.writeInt(descriptionId);
         out.writeInt(buttonVisibility);
         out.writeInt(buttonTextId);
@@ -70,6 +73,7 @@ public class WizardPage implements Parcelable {
     private WizardPage(Parcel in) {
         id = in.readInt();
         imageId = in.readInt();
+        backgroundImageId = in.readInt();
         descriptionId = in.readInt();
         buttonVisibility = in.readInt();
         buttonTextId = in.readInt();
@@ -79,6 +83,7 @@ public class WizardPage implements Parcelable {
     public static class Builder {
 
         int imageId;
+        int backgroundImageId;
         int descriptionId;
         int buttonVisibility;
         int buttonTextId;
@@ -91,6 +96,11 @@ public class WizardPage implements Parcelable {
 
         public Builder setImageId(int imageId) {
             this.imageId = imageId;
+            return this;
+        }
+
+        public Builder setBackgroundImageId(int id) {
+            this.backgroundImageId = id;
             return this;
         }
 
