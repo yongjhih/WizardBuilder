@@ -19,6 +19,8 @@ package com.ramdroid.wizardbuilder;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -92,6 +94,33 @@ public class WizardActivity extends SherlockFragmentActivity {
             catch (Resources.NotFoundException e) {
             }
         }
+
+        mPager.setOnTouchListener(new View.OnTouchListener() {
+            float oldX = 0, newX = 0, sens = 5;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        oldX = event.getX();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        newX = event.getX();
+                        if (Math.abs(oldX - newX) < sens) {
+                            int nextItem = mPager.getCurrentItem() + 1;
+                            if (nextItem >= mPager.getAdapter().getCount()) finish();
+                            else mPager.setCurrentItem(nextItem);
+                            return true;
+                        }
+                        oldX = 0;
+                        newX = 0;
+                        break;
+                }
+
+                return false;
+            }
+        });
     }
 
     public boolean onOptionsItemSelected (MenuItem item) {
