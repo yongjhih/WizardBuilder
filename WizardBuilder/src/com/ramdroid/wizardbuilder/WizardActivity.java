@@ -43,6 +43,7 @@ public class WizardActivity extends SherlockFragmentActivity {
     private String title;
     private boolean indicatorBelow;
     private int backgroundImageId;
+    private ViewPager mPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,14 +73,17 @@ public class WizardActivity extends SherlockFragmentActivity {
         // set the pager with an adapter
         WizardAdapter adapter = new WizardAdapter(getSupportFragmentManager());
         adapter.setValues(pages, whatsNewId);
-        ViewPager pager = (ViewPager)findViewById(R.id.viewpager);
-        pager.setAdapter(adapter);
+        mPager = (ViewPager)findViewById(R.id.viewpager);
+        mPager.setAdapter(adapter);
 
         // bind the title indicator to the adapter
         PageIndicator indicator = (PageIndicator)findViewById(R.id.indicator);
-        indicator.setViewPager(pager);
+        indicator.setViewPager(mPager);
 
-        ViewGroup viewGroup = (ViewGroup) pager.getParent();
+        // instead of mPager.setOnPageChangeListener(mOnPageChangeListener);
+        indicator.setOnPageChangeListener(mOnPageChangeListener);
+
+        ViewGroup viewGroup = (ViewGroup) mPager.getParent();
         if (viewGroup != null) {
             try {
                 viewGroup.setBackgroundResource(backgroundImageId);
@@ -87,7 +91,6 @@ public class WizardActivity extends SherlockFragmentActivity {
             catch (Resources.NotFoundException e) {
             }
         }
-
     }
 
     public boolean onOptionsItemSelected (MenuItem item) {
@@ -101,4 +104,27 @@ public class WizardActivity extends SherlockFragmentActivity {
         }
         }
     }
+
+    private ViewPager.OnPageChangeListener mOnPageChangeListener = new OnPageChangeListenerWrapper() {
+        boolean lastPageOverscrolled;
+        boolean isLastPage;
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            if (isLastPage && position == mPager.getCurrentItem() && !lastPageOverscrolled) {
+                isLastPage = false;
+                lastPageOverscrolled = true;
+                finish();
+            } else {
+                isLastPage = false;
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            if (mPager.getCurrentItem() == mPager.getAdapter().getCount() - 1) {
+                isLastPage = true;
+            }
+        }
+    };
 }
