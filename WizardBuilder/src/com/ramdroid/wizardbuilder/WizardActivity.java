@@ -58,7 +58,7 @@ public class WizardActivity extends SherlockFragmentActivity {
             backgroundImageId = data.getInt("backgroundImageId");
         }
 
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
         setContentView(indicatorBelow ? R.layout.helpwizard_indicator_below : R.layout.helpwizard_indicator_above);
 
         if (title != null && title.length() > 0) {
