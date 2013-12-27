@@ -108,23 +108,23 @@ public class WizardActivity extends SherlockFragmentActivity {
 
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new OnPageChangeListenerWrapper() {
         boolean lastPageOverscrolled;
-        boolean isLastSecondPage;
+        boolean isLastPage;
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            if (isLastSecondPage && position == mPager.getCurrentItem() && !lastPageOverscrolled) {
-                isLastSecondPage = false;
+            if (isLastPage && position == mPager.getCurrentItem() && !lastPageOverscrolled) {
+                isLastPage = false;
                 lastPageOverscrolled = true;
                 finish();
             } else {
-                isLastSecondPage = false;
+                isLastPage = false;
             }
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
             if (mPager.getCurrentItem() == mPager.getAdapter().getCount() - 1) {
-                isLastSecondPage = true;
+                isLastPage = true;
             }
         }
     };
