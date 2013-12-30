@@ -135,7 +135,7 @@ public class WizardActivity extends SherlockFragmentActivity {
         }
     }
 
-    private ViewPager.OnPageChangeListener mOnPageChangeListener = new OnPageChangeListenerWrapper() {
+    private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
         boolean lastPageOverscrolled;
         boolean isLastPage;
 
